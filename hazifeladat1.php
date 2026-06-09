@@ -6,7 +6,7 @@ $varos = ["Budapest", "Szigethalom", "Nagykanizsa", "Szolnok"];
 
 $i = 0;
 foreach ($nev as $n) {
-    echo $n . $szuletesiEv[$i] . "-ben született és a születési helye " . $varos[$i] . ".<br>";
+    echo $n . $szuletesiEv[$i] . "-en született és a születési helye " . $varos[$i] . ".<br>";
     $i++;
 }
 echo "<br>";
