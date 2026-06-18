@@ -2,24 +2,33 @@
 
 $felhasznalonev = ["admin", "titkar", "istvan"];
 $jelszo = ["123456", "T1234", "87654321"];
-
-$username = $_POST["username"];
-$pass = $_POST["password"];
-
 $index = 0;
 $valid =0;
 $error ="";
+$username = "";
 
-foreach ($felhasznalonev as $f) {
-    if ($username == $f && $pass == $jelszo[$index]) {
-        $error = "Sikeres belépés!";
-        $valid = 1;
+// form küldésének ellenőrzése
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    
+    if(isset($_POST["username"]) && !empty($_POST["username"])){
+        $username = $_POST["username"];
+    } else {
+        $error = "Nem töltötted ki a felhasználónév mezőt!";
     }
-    $index++;
-}
 
-if ($valid != 1) {
-    $error = "Hibás felhasználónév vagy jelszó!";
+    $pass = $_POST["password"];
+
+    foreach ($felhasznalonev as $f) {
+        if ($username == $f && $pass == $jelszo[$index]) {
+            $error .= "Sikeres belépés!";
+            $valid = 1;
+        }
+        $index++;
+    }
+
+    if ($valid != 1) {
+        $error .= "Hibás felhasználónév vagy jelszó!";
+    }
 }
 
 ?>
@@ -36,10 +45,10 @@ if ($valid != 1) {
 
     <form action="login1.php" method="post">
         <label style="font-size: 20px;">Felhasználónév:</label><br>
-        <input type="text" name="username"><br><br>
+        <input type="text" name="username" required><br><br>
         
         <label style="font-size: 20px;">Jelszó:</label><br>
-        <input type="password" name="password"><br><br>
+        <input type="password" name="password" required><br><br>
         
         <input style = "background: blue; color: white;"type="submit" value="Belépés">
 
